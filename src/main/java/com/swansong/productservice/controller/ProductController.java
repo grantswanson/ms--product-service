@@ -17,18 +17,19 @@ import java.util.Optional;
 @Log
 public class ProductController {
 
-    private final ProductRepository  productRepository;
+    private final ProductRepository productRepository;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createProduct(@RequestBody Product product) {
-        log.info("createProduct("+(product!=null? "name="+product.getName(): "" )+")");
+        log.info("createProduct(" + (product != null ? "name=" + product.getName() : "") + ")");
         productRepository.save(product);
     }
+
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Product> findById(@PathVariable String id) {
-        log.info("findById("+id+")");
+        log.info("findById(" + id + ")");
         Optional<Product> optionalProduct = productRepository.findById(id);
         if (optionalProduct.isPresent()) {
             return ResponseEntity.ok(optionalProduct.get());
@@ -36,6 +37,7 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Product> findAll() {

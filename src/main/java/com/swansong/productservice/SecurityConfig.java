@@ -9,8 +9,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-/** This enables security in this service and prevents unauthorized access */
-public class SecurityConfig   {
+/* This enables security in this service and prevents unauthorized access */
+public class SecurityConfig {
 
 
     // Originally we were going to extend WebSecurityConfigurerAdapter and override the configure method,

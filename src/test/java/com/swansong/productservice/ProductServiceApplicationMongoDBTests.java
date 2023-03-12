@@ -20,32 +20,32 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ProductServiceControllerAndMongoDBTests {
 
-	@Autowired
-	private WebTestClient webTestClient;
+    @Autowired
+    private WebTestClient webTestClient;
 
-	@Test
-	void testCreateProductAndFindById() {
-		Product product = new Product(
-				"123", "FuzzyBunnySlippers", "Pink fuzzy slippers with bunny ears", new BigDecimal("9.99"));
-		webTestClient.post()
-				.uri("/api/product")
-				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-				.body(Mono.just(product), Product.class)
-				.exchange()
-				.expectStatus().isCreated();
+    @Test
+    void testCreateProductAndFindById() {
+        Product product = new Product(
+                "123", "FuzzyBunnySlippers", "Pink fuzzy slippers with bunny ears", new BigDecimal("9.99"));
+        webTestClient.post()
+                .uri("/api/product")
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .body(Mono.just(product), Product.class)
+                .exchange()
+                .expectStatus().isCreated();
 
 
-		webTestClient.get()
-				.uri("/api/product/123")
-				.accept(MediaType.APPLICATION_JSON)
-				.exchange()
-				// and use the dedicated DSL to test assertions against the response
-				.expectStatus().isOk()
-				.expectBody(Product.class).value( product1 ->
-				{
-					assertThat(product.equals(product1)).isTrue();
-				});
+        webTestClient.get()
+                .uri("/api/product/123")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                // and use the dedicated DSL to test assertions against the response
+                .expectStatus().isOk()
+                .expectBody(Product.class).value(product1 ->
+                {
+                    assertThat(product.equals(product1)).isTrue();
+                });
 
-	}
+    }
 
 }
