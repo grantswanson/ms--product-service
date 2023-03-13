@@ -40,8 +40,8 @@ public class ProductController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Product> findAll() {
+    public ResponseEntity<List<Product>> findAll() {
         log.info("findAll()");
-        return productRepository.findAll();
+        return ResponseEntity.ok(productRepository.findAll());
     }
 }
